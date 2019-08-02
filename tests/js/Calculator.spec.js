@@ -43,9 +43,16 @@ describe('Calculator.vue', () => {
         wrapper.find('button.btn-result').trigger('click');
         expect(wrapper.vm.current).toEqual(2);
     });
-
-    // it('Get Latest Calculations', () => {
-    //     const wrapper = shallowMount(Calculator);
-    //     console.log(wrapper.vm.getLatestCalculations());
-    // });
+    
+    it('Check Continue calculation', () => {
+        const wrapper = shallowMount(Calculator);
+        wrapper.find('button.btn5').trigger('click');
+        wrapper.find('button.btn-minus').trigger('click');
+        wrapper.find('button.btn3').trigger('click');
+        wrapper.find('button.btn-result').trigger('click');
+        wrapper.find('button.btn-plus').trigger('click');
+        wrapper.find('button.btn5').trigger('click');
+        wrapper.find('button.btn-result').trigger('click');
+        expect(wrapper.vm.current).toEqual(7);
+    });
 })
