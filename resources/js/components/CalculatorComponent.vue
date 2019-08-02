@@ -46,7 +46,7 @@
                 <button class="calculator-btn" @click="addExpresion(6)">6</button>
             </div>
             <div class="calculator-col">
-                <button class="calculator-btn accent action btn-minus" @click="minus">-</button>
+                <button class="calculator-btn accent action btn-minus" @click="operationClicked('-')">-</button>
             </div>
         </div>
         <div class="calculator-row">
@@ -60,7 +60,7 @@
                 <button class="calculator-btn btn3" @click="addExpresion(3)">3</button>
             </div>
             <div class="calculator-col">
-                <button class="calculator-btn accent action btn-plus" @click="add">+</button>
+                <button class="calculator-btn accent action btn-plus" @click="operationClicked('+')">+</button>
             </div>
         </div>
         <div class="calculator-row">
@@ -86,7 +86,8 @@
                 current: 0,
                 operator: null,
                 operatorClicked: false,
-                logs: []
+                logs: [],
+                result: false
             }
         },
         methods: {
@@ -109,7 +110,7 @@
             },
 
             addExpresion(number) {
-                if (this.operatorClicked) {
+                if (this.operatorClicked || this.result) {
                     this.current = '';
                     this.operatorClicked = false;
                 }
@@ -126,23 +127,14 @@
                 this.operatorClicked = true;
                 this.blink();
             },
-            minus() {
+            operationClicked(op) {
                 // if(this.previous) this.equal();
                 // this.operator = (a, b) => a - b;
-                this.operator = '-';
-                this.setPrevious();
-            },
-            add() {
-                // if(this.previous) this.equal();
-                // this.operator = (a, b) => a + b;
-                this.operator = '+';
+                this.operator = op;
                 this.setPrevious();
             },
             equal() {
-                // this.current = `${this.operator(
-                //     parseFloat(this.current),
-                //     parseFloat(this.previous)
-                // )}`;
+
                 const log = this.previous+''+this.operator+''+this.current;
                 const current = this.current;
                 const previous = this.previous;
@@ -160,6 +152,7 @@
                 this.postCalculation(previous, current, operator);
 
                 this.previous = null;
+                this.result = true;
 
             },
             postCalculation(previous, current, operator) {
