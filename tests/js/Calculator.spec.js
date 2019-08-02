@@ -43,7 +43,7 @@ describe('Calculator.vue', () => {
         wrapper.find('button.btn-result').trigger('click');
         expect(wrapper.vm.current).toEqual(2);
     });
-    
+
     it('Check Continue calculation', () => {
         const wrapper = shallowMount(Calculator);
         wrapper.find('button.btn5').trigger('click');
@@ -54,5 +54,18 @@ describe('Calculator.vue', () => {
         wrapper.find('button.btn5').trigger('click');
         wrapper.find('button.btn-result').trigger('click');
         expect(wrapper.vm.current).toEqual(7);
+    });
+
+    it('Check Multiple calculation', () => {
+        const wrapper = shallowMount(Calculator);
+        wrapper.find('button.btn5').trigger('click');
+        wrapper.find('button.btn-minus').trigger('click');
+        wrapper.find('button.btn3').trigger('click');
+        wrapper.find('button.btn-result').trigger('click');
+        wrapper.find('button.btn5').trigger('click');
+        wrapper.find('button.btn-plus').trigger('click');
+        wrapper.find('button.btn5').trigger('click');
+        wrapper.find('button.btn-result').trigger('click');
+        expect(wrapper.vm.current).toEqual(10);
     });
 })
